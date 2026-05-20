@@ -49,8 +49,8 @@ const Navbar = () => {
                         <Switch />
                     </div>
                     <div>
-                        <Button  className='ml-4 bg-blue-600 hover:bg-indigo-600 text-white mr-2'>Login</Button>
-                        <Button className=" bg-blue-600 hover:bg-indigo-600 text-white " >Sign up</Button>
+                        <Link href='/login'><Button className='ml-4 bg-blue-600 hover:bg-indigo-600 text-white mr-2'>Login</Button></Link>
+                        <Link href='/signup'><Button className=" bg-blue-600 hover:bg-indigo-600 text-white " >Sign up</Button></Link>
                     </div>
                 </div>
                 

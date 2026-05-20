@@ -43,7 +43,7 @@ const SignupPage = () => {
     }
 
     return (
-        <Card className='w-full max-w-md mx-auto mt-10 p-6 rounded-lg shadow-lg'>
+        <Card className='w-full max-w-md bg-accent mx-auto mt-10 p-6 rounded-lg shadow-lg'>
             <h2 className='text-2xl font-bold mb-6 text-center'>Sign Up</h2>
             <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
                 <TextField
@@ -57,7 +57,7 @@ const SignupPage = () => {
                     }}
                 >
                     <Label>Name</Label>
-                    <Input placeholder="Enter your name" />
+                    <Input className="text-black" placeholder="Enter your name" />
                     <FieldError />
                 </TextField>
                 <TextField
@@ -112,21 +112,21 @@ const SignupPage = () => {
                     <FieldError />
                 </TextField>
                 <div className="flex gap-2">
-                    <Button type="submit">
+                    <Button type="submit" className="bg-blue-500 text-white">
                         <Check />
                         Submit
                     </Button>
-                    <Button type="reset" variant="secondary">
+                    <Button type="reset" variant="secondary" className="text-black">
                         Reset
                     </Button>
                 </div>
             </Form>
             <div>
-                <p className='text-center mt-4'>Already have an account? <Link href="/signin" className='text-blue-500 hover:underline'>Sign In Now</Link></p>
+                <p className='text-center mt-4'>Already have an account? <Link href="/login" className='text-blue-500 hover:underline'>Sign In Now</Link></p>
             </div>
             <p className='text-center mt-4'>Or sign up with</p>
-            <div className='flex justify-center gap-4 mt-4'>
-                <Button className="btn btn-outline btn-primary w-full" onClick={signUp}>
+            <div className='flex justify-center gap-4  mt-4'>
+                <Button className="btn  btn-outline border border-blue-600  w-full" onClick={() => signUp()}>
                     <span className='flex items-center gap-2'><FaGoogle />  Google</span>
                 </Button>
             </div>

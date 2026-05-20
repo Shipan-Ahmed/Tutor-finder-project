@@ -1,3 +1,4 @@
+import BookSessionModal from "@/Component/BookSessionModal";
 import Image from "next/image";
 
 import {
@@ -179,11 +180,10 @@ const TutorDetails = async ({ params }) => {
 
                         </div>
 
-                        <button className="mt-4 md:mt-0 bg-white text-blue-600 px-8 py-3 rounded-2xl font-semibold hover:bg-slate-100 transition">
-
-                            Book Session
-
-                        </button>
+                        <BookSessionModal
+                            tutor={tutor}
+                            user={user}
+                        />
 
                     </div>
 
