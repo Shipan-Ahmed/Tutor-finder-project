@@ -71,9 +71,6 @@ export default function AddTutor() {
 
         // axiosSecure.post("/tutors", tutorData)
 
-        // if (!response.ok) {
-        //      toast.error("Failed to add tutor. Please try again.");
-        // }
 
         toast.success("Tutor Added Successfully")
     };
