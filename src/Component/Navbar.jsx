@@ -35,7 +35,7 @@ const Navbar = () => {
                             )
                         }
                     </div>
-                    <h2 className='text-2xl font-bold'>Tutor <span className='text-indigo-600'>Finder</span></h2>
+                    <h2 className='text-3xl font-bold text-black'>Tutor<span className='text-blue-500'>Finder</span></h2>
                 </div>
                 <div className="hidden lg:flex ">
                     <ul className='hidden lg:flex space-x-4'>
@@ -49,7 +49,8 @@ const Navbar = () => {
                         <Switch />
                     </div>
                     <div>
-                        <Button  className='ml-4 bg-blue-600 hover:bg-indigo-600 text-white'>Login</Button>
+                        <Button  className='ml-4 bg-blue-600 hover:bg-indigo-600 text-white mr-2'>Login</Button>
+                        <Button className=" bg-blue-600 hover:bg-indigo-600 text-white " >Sign up</Button>
                     </div>
                 </div>
                 
