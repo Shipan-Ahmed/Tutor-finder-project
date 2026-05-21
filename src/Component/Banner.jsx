@@ -118,7 +118,7 @@ export default function Banner() {
                             </Button>
                         </Link>
 
-                        <Link href="/addTutor">
+                        <Link href="/add-tutor">
                             <Button
                                 variant="outline"
                                 className="h-12 rounded-2xl px-8 text-black"

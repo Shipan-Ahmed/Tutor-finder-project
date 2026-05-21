@@ -1,22 +1,29 @@
-import { NextResponse } from 'next/server'
-import { auth } from './lib/auth'
-import { headers } from 'next/headers'
+import { NextResponse } from "next/server";
+import { auth } from "./lib/auth";
 
-// This function can be marked `async` if using `await` inside
-export async function proxy(request) {
-     const session = await auth.api.getSession({
-            headers: await headers() // you need to pass the headers object.
-        })
+export async function proxy (request) {
 
-    if(!session) {
-        return NextResponse.redirect(new URL('/', request.url))
+    const session =
+        await auth.api.getSession({
+            headers: request.headers
+        });
+
+    if (!session?.user) {
+
+        return NextResponse.redirect(
+            new URL("/login", request.url)
+        );
+
     }
-    
-}
 
-// Alternatively, you can use a default export:
-// export default function proxy(request) { ... }
+    return NextResponse.next();
+}
 
 export const config = {
-    matcher: ['/add-tutor', '/my-tutors', '/tutors/:path*' , '/my-booked-sessions']
-}
+    matcher: [
+        "/add-tutor",
+        "/my-tutors",
+        "/my-booked-sessions",
+        "/tutors/:path*"
+    ]
+};

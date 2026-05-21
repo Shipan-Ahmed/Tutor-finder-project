@@ -52,7 +52,7 @@ export default function AvailableTutors() {
                     ))}
             </div>
 
-            <div className="flex justify-center mt-12">
+            {/* <div className="flex justify-center mt-12">
                 <Link href="/tutors">
                     <Button
                         variant="outline"
@@ -61,7 +61,7 @@ export default function AvailableTutors() {
                         View All Tutors
                     </Button>
                 </Link>
-            </div>
+            </div> */}
         </section>
     )
 }
