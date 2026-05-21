@@ -1,36 +1,199 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🎓 MediQueue – Tutor Booking System
 
-## Getting Started
+MediQueue is a modern tutor booking platform where students can explore tutors, book learning sessions, manage scheduled classes, and avoid manual scheduling conflicts. The system provides a smooth and organized learning experience with real-time slot management and digital booking flow.
 
-First, run the development server:
+🔗 **Live Site:** https://your-live-link.vercel.app  
+💻 **Client Repository:** https://github.com/yourusername/client-repo  
+🖥️ **Server Repository:** https://github.com/yourusername/server-repo  
+
+---
+
+## ✨ Features
+
+✅ User Authentication with Email/Password and Google Login  
+✅ Private Routes using JWT Authentication  
+✅ Add Tutor functionality with detailed tutor information  
+✅ Browse Available Tutors with dynamic cards  
+✅ Book learning sessions with slot restrictions  
+✅ Automatic slot decrease after successful booking  
+✅ Session date restriction logic implemented  
+✅ My Tutors dashboard with update and delete functionality  
+✅ My Booked Sessions page with booking cancellation  
+✅ Search tutors by name using regex search  
+✅ Filter tutors by registration date range  
+✅ Dark / Light theme support  
+✅ Responsive design for Mobile, Tablet, and Desktop  
+✅ Beautiful loading, error and 404 pages  
+✅ Toast notifications for all CRUD operations  
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- Next.js
+- React
+- Tailwind CSS
+- Shadcn UI
+- React Icons
+- next-themes
+- React Hot Toast
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- JWT Authentication
+- CORS
+- dotenv
+
+---
+
+## 🔐 Authentication Features
+
+- Email & Password Login
+- Google Login
+- Protected Routes
+- JWT Token Generation
+- Session Persistence
+- Route Protection Middleware
+
+---
+
+## 📚 Main Pages
+
+### Public Pages
+- Home
+- Tutors
+- Login
+- Register
+
+### Private Pages
+- Add Tutor
+- Tutor Details
+- My Tutors
+- My Booked Sessions
+
+---
+
+## ⚙️ Core Functionalities
+
+### Tutor Management
+- Create Tutor
+- Update Tutor
+- Delete Tutor
+- View Tutor Details
+
+### Booking System
+- Book Session
+- Session Validation
+- Slot Availability Check
+- Automatic Slot Decrease
+- Booking Status Tracking
+- Cancel Booking
+
+---
+
+## 🎨 UI Features
+
+- Custom modern design
+- Consistent color system
+- Interactive animations
+- Responsive layouts
+- Dark / Light mode toggle
+- Friendly empty states
+
+---
+
+## 📂 Project Structure
+
+```bash
+client/
+│
+├── app
+├── components
+├── lib
+├── hooks
+├── middleware.js
+└── public
+
+
+server/
+│
+├── routes
+├── index.js
+├── .env
+└── package.json
+```
+
+---
+
+## 🚀 Installation Guide
+
+Clone client:
+
+```bash
+git clone https://github.com/yourusername/client-repo.git
+```
+
+Clone server:
+
+```bash
+git clone https://github.com/yourusername/server-repo.git
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run frontend:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run backend:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+nodemon index.js
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🔑 Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Create `.env` file:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+DB_URI=your_mongodb_uri
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+JWT_SECRET=your_secret
 
-## Deploy on Vercel
+NEXT_PUBLIC_API_URL=http://localhost:3500
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📸 Screenshots
+
+### Home Page
+
+(Add screenshot here)
+
+### Tutor Details
+
+(Add screenshot here)
+
+### Dashboard
+
+(Add screenshot here)
+
+---
+
+## 👨‍💻 Developed By
+
+Shipan Miah
+
+Software Engineering Enthusiast | Full Stack Learner | Competitive Programmer
