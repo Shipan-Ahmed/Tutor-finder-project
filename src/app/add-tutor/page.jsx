@@ -1,7 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import toast from "react-hot-toast";
+
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -14,87 +22,195 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import toast from "react-hot-toast";
+
+import { authClient } from "@/lib/auth-client";
 
 export default function AddTutor() {
+
     const [subject, setSubject] = useState("");
     const [mode, setMode] = useState("");
     const [day, setDay] = useState("");
     const [time, setTime] = useState("");
 
-    const handleSubmit = async (e) => {
+    const [loading, setLoading] =
+        useState(false);
+
+    const {
+        data: session,
+        isPending
+    } = authClient.useSession();
+
+    const user = session?.user;
+
+    async function handleSubmit(e) {
+
         e.preventDefault();
 
-        const form = new FormData(e.target);
+        if (
+            !subject ||
+            !mode ||
+            !day ||
+            !time
+        ) {
+            toast.error(
+                "Please fill all dropdown fields"
+            );
 
-        const tutorData = {
-            tutorName: form.get("tutorName"),
-            photo: form.get("photo"),
+            return;
+        }
 
-            subject,
+        try {
 
-            availableDays: day,
-            availableTime: time,
+            setLoading(true);
 
-            hourlyFee: Number(form.get("hourlyFee")),
+            const form =
+                new FormData(e.target);
 
-            totalSlot: Number(form.get("totalSlot")),
+            const tutorData = {
 
-            sessionDate: form.get("sessionDate"),
+                tutorName:
+                    form.get("tutorName"),
 
-            institution: form.get("institution"),
-            experience: form.get("experience"),
+                photo:
+                    form.get("photo"),
 
-            location: form.get("location"),
+                subject,
 
-            teachingMode: mode,
+                availableDays: day,
 
-            // from logged user
-            creatorName: "user.displayName",
-            creatorEmail: "user.email",
+                availableTime: time,
 
-            createdAt: new Date(),
-        };
+                hourlyFee: Number(
+                    form.get("hourlyFee")
+                ),
 
-        console.log(tutorData);
+                totalSlot: Number(
+                    form.get("totalSlot")
+                ),
 
-        const response = await fetch("http://localhost:3500/tutors", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(tutorData),
-            
-        })
-        const Data = await response.json();
-        console.log(Data);
+                sessionDate:
+                    form.get("sessionDate"),
 
-        // axiosSecure.post("/tutors", tutorData)
+                institution:
+                    form.get("institution"),
 
+                experience:
+                    form.get("experience"),
 
-        toast.success("Tutor Added Successfully")
-    };
+                location:
+                    form.get("location"),
+
+                teachingMode:
+                    mode,
+
+                creatorName:
+                    user?.name,
+
+                creatorEmail:
+                    user?.email,
+
+                createdAt:
+                    new Date()
+            };
+
+            const response =
+                await fetch(
+                    "http://localhost:3500/tutors",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify(
+                            tutorData
+                        ),
+                    }
+                );
+
+            const data =
+                await response.json();
+
+            if (data.insertedId) {
+
+                toast.success(
+                    "Tutor Added Successfully"
+                );
+
+                e.target.reset();
+
+                setSubject("");
+                setMode("");
+                setDay("");
+                setTime("");
+
+            } else {
+
+                toast.error(
+                    "Failed to add tutor"
+                );
+
+            }
+
+        } catch (error) {
+
+            console.log(error);
+
+            toast.error(
+                "Something went wrong"
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
+    }
+
+    if (isPending) {
+
+        return (
+            <div className="flex justify-center py-20">
+
+                <span className="loading loading-spinner loading-lg text-blue-600"></span>
+
+            </div>
+        )
+    }
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-10">
-            <Card className="rounded-3xl shadow-md border-0 ">
+
+            <Card className="rounded-3xl shadow-lg border-0">
+
                 <CardHeader>
-                    <CardTitle className="text-center text-3xl font-bold">
+
+                    <CardTitle className="text-center text-4xl font-bold">
+
                         Add Tutor
+
                     </CardTitle>
 
-                    <p className="text-center text-muted-foreground">
-                        Create a tutor profile and publish sessions
+                    <p className="text-center text-muted-foreground mt-2">
+
+                        Create tutor profile and publish sessions
+
                     </p>
+
                 </CardHeader>
 
                 <CardContent>
+
                     <form
                         onSubmit={handleSubmit}
                         className="grid md:grid-cols-2 gap-6"
                     >
+
                         <div>
                             <Label>Tutor Name</Label>
+
                             <Input
                                 name="tutorName"
                                 placeholder="John Doe"
@@ -104,22 +220,32 @@ export default function AddTutor() {
 
                         <div>
                             <Label>Photo URL</Label>
+
                             <Input
                                 name="photo"
-                                placeholder="imgbb/postimage link"
+                                placeholder="https://image-url.com"
                                 required
                             />
                         </div>
 
                         <div>
-                            <Label>Subject / Category</Label>
 
-                            <Select onValueChange={setSubject}>
+                            <Label>
+                                Subject / Category
+                            </Label>
+
+                            <Select
+                                onValueChange={setSubject}
+                            >
+
                                 <SelectTrigger>
+
                                     <SelectValue placeholder="Select Subject" />
+
                                 </SelectTrigger>
 
                                 <SelectContent>
+
                                     <SelectItem value="Mathematics">
                                         Mathematics
                                     </SelectItem>
@@ -139,63 +265,97 @@ export default function AddTutor() {
                                     <SelectItem value="English">
                                         English
                                     </SelectItem>
+
                                 </SelectContent>
+
                             </Select>
+
                         </div>
 
                         <div>
-                            <Label>Hourly Fee</Label>
+
+                            <Label>
+                                Hourly Fee
+                            </Label>
 
                             <Input
                                 type="number"
                                 name="hourlyFee"
-                                placeholder="500 tk/hr"
+                                placeholder="500"
                                 required
                             />
+
                         </div>
 
                         <div>
-                            <Label>Available Days</Label>
 
-                            <Select onValueChange={setDay}>
+                            <Label>
+                                Available Days
+                            </Label>
+
+                            <Select
+                                onValueChange={setDay}
+                            >
+
                                 <SelectTrigger>
+
                                     <SelectValue placeholder="Choose Day" />
+
                                 </SelectTrigger>
 
                                 <SelectContent>
-                                    <SelectItem value="sat-mon-wed">
-                                        sat-mon-wed
+
+                                    <SelectItem value="Sat-Mon-Wed">
+                                        Sat-Mon-Wed
                                     </SelectItem>
 
-                                    <SelectItem value="sun-tue-thu">
-                                        sun-tue-thu
+                                    <SelectItem value="Sun-Tue-Thu">
+                                        Sun-Tue-Thu
                                     </SelectItem>
+
                                 </SelectContent>
+
                             </Select>
+
                         </div>
 
                         <div>
-                            <Label>Available Time Slot</Label>
 
-                            <Select onValueChange={setTime}>
+                            <Label>
+                                Available Time Slot
+                            </Label>
+
+                            <Select
+                                onValueChange={setTime}
+                            >
+
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Choose Time Slot" />
+
+                                    <SelectValue placeholder="Choose Time" />
+
                                 </SelectTrigger>
 
                                 <SelectContent>
-                                    <SelectItem value="5pm-6pm">
-                                        5 PM - 6 PM
+
+                                    <SelectItem value="5PM-6PM">
+                                        5PM - 6PM
                                     </SelectItem>
 
-                                    <SelectItem value="7pm-8pm">
-                                        7 PM - 8 PM
+                                    <SelectItem value="7PM-8PM">
+                                        7PM - 8PM
                                     </SelectItem>
+
                                 </SelectContent>
+
                             </Select>
+
                         </div>
 
                         <div>
-                            <Label>Total Slot</Label>
+
+                            <Label>
+                                Total Slot
+                            </Label>
 
                             <Input
                                 type="number"
@@ -203,47 +363,69 @@ export default function AddTutor() {
                                 placeholder="10"
                                 required
                             />
+
                         </div>
 
                         <div>
-                            <Label>Session Start Date</Label>
+
+                            <Label>
+                                Session Start Date
+                            </Label>
 
                             <Input
                                 type="date"
                                 name="sessionDate"
                                 required
                             />
+
                         </div>
 
                         <div>
-                            <Label>Institution</Label>
+
+                            <Label>
+                                Institution
+                            </Label>
 
                             <Input
                                 name="institution"
-                                placeholder="University / School"
+                                placeholder="University"
                                 required
                             />
+
                         </div>
 
                         <div>
-                            <Label>Location</Label>
+
+                            <Label>
+                                Location
+                            </Label>
 
                             <Input
                                 name="location"
-                                placeholder="Area / City"
+                                placeholder="Dhaka"
                                 required
                             />
+
                         </div>
 
                         <div className="md:col-span-2">
-                            <Label>Teaching Mode</Label>
 
-                            <Select onValueChange={setMode}>
+                            <Label>
+                                Teaching Mode
+                            </Label>
+
+                            <Select
+                                onValueChange={setMode}
+                            >
+
                                 <SelectTrigger>
+
                                     <SelectValue placeholder="Choose Mode" />
+
                                 </SelectTrigger>
 
                                 <SelectContent>
+
                                     <SelectItem value="Online">
                                         Online
                                     </SelectItem>
@@ -255,31 +437,51 @@ export default function AddTutor() {
                                     <SelectItem value="Both">
                                         Both
                                     </SelectItem>
+
                                 </SelectContent>
+
                             </Select>
+
                         </div>
 
                         <div className="md:col-span-2">
-                            <Label>Experience</Label>
+
+                            <Label>
+                                Experience
+                            </Label>
 
                             <Textarea
                                 name="experience"
-                                placeholder="5 years teaching experience..."
                                 className="min-h-32"
+                                placeholder="5 years teaching experience..."
                                 required
                             />
+
                         </div>
 
                         <div className="md:col-span-2">
+
                             <Button
+                                disabled={loading}
                                 className="w-full h-12 rounded-2xl bg-blue-600 hover:bg-indigo-600"
                             >
-                                Add Tutor
+
+                                {
+                                    loading
+                                        ? "Adding Tutor..."
+                                        : "Add Tutor"
+                                }
+
                             </Button>
+
                         </div>
+
                     </form>
+
                 </CardContent>
+
             </Card>
+
         </div>
     );
 }

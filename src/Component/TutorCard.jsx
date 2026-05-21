@@ -8,7 +8,7 @@ import React from 'react';
 import { FaBookOpen, FaClock, FaDollarSign } from 'react-icons/fa';
 
 const TutorCard = ({ tutor }) => {
-    const { tutorName, subject, photo, hourlyFee, availableTime, institution, totalSlots, _id } = tutor;
+    const { tutorName, subject, photo, hourlyFee, availableTime, institution, totalSlot, _id } = tutor;
     console.log("id : ", _id);
     return (
         <div
@@ -30,7 +30,7 @@ const TutorCard = ({ tutor }) => {
                     </span>
 
                     <span className="text-emerald-600 font-semibold">
-                        {totalSlots} Slots
+                        {totalSlot} Slots
                     </span>
                 </div>
 

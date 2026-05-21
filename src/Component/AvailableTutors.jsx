@@ -20,7 +20,8 @@ export default function AvailableTutors() {
             })
             .catch(() => setLoading(false))
     }, [])
-
+    console.log(typeof tutors, " tutors type");
+    console.log(tutors, " tutors data");
     if (loading) {
         return (
             <div className="py-20 text-center">
@@ -42,7 +43,13 @@ export default function AvailableTutors() {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {tutors.map((tutor) => <TutorCard key={tutor._id} tutor={tutor} />)}
+                {Array.isArray(tutors) &&
+                    tutors.map((tutor) => (
+                        <TutorCard
+                            key={tutor._id}
+                            tutor={tutor}
+                        />
+                    ))}
             </div>
 
             <div className="flex justify-center mt-12">

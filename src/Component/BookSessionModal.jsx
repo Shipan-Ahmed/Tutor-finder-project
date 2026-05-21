@@ -18,13 +18,20 @@ export default function BookSessionModal({
 }) {
     const [loading, setLoading] = useState(false);
 
+    const [open, setOpen] = useState(false);
+
+    const [slots, setSlots] = useState(
+        tutor.totalSlot
+    );
+
     const {
         _id,
         tutorName,
         totalSlot,
         sessionDate,
     } = tutor;
-
+    console.log( "User in modal:", user);
+    console.log( "Tutor in modal:", tutor);
     const handleBooking = async (e) => {
         e.preventDefault();
 
@@ -34,7 +41,7 @@ export default function BookSessionModal({
 
         // Slot check
 
-        if (totalSlot <= 0) {
+        if (slots <= 0) {
             toast.error(
                 "This session is fully booked."
             );
@@ -62,7 +69,7 @@ export default function BookSessionModal({
             tutorName,
 
             studentName:
-                user?.displayName,
+                user?.name,
 
             studentEmail:
                 user?.email,
@@ -99,18 +106,24 @@ export default function BookSessionModal({
                 await bookingRes.json();
 
             if (bookingResult.insertedId) {
-                // decrease slot
 
                 await fetch(
                     `http://localhost:3500/tutors/decrease-slot/${_id}`,
                     {
-                        method: "PATCH",
+                        method: "PATCH"
                     }
                 );
+
+                // update local UI instantly
+                setSlots(prev => prev - 1);
+
+                // close modal
+                setOpen(false);
 
                 toast.success(
                     "Session booked successfully"
                 );
+
             }
         } catch (err) {
             toast.error(
@@ -124,7 +137,10 @@ export default function BookSessionModal({
     };
 
     return (
-        <Dialog>
+        <Dialog
+            open={open}
+            onOpenChange={setOpen}
+        >
             <DialogTrigger asChild>
 
                 <button className="bg-white text-blue-600 px-8 py-3 rounded-2xl font-semibold">
@@ -145,24 +161,13 @@ export default function BookSessionModal({
                     onSubmit={handleBooking}
                     className="space-y-4 mt-5"
                 >
+                    <label>Student Name</label>
                     <input
-                        value={user?.displayName}
+                        value={user?.name}
                         readOnly
                         className="w-full border rounded-xl p-3"
                     />
-
-                    <input
-                        value={user?.email}
-                        readOnly
-                        className="w-full border rounded-xl p-3"
-                    />
-
-                    <input
-                        value={tutorName}
-                        readOnly
-                        className="w-full border rounded-xl p-3"
-                    />
-
+                    <label>Student Phone</label>
                     <input
                         type="text"
                         name="phone"
@@ -170,6 +175,28 @@ export default function BookSessionModal({
                         required
                         className="w-full border rounded-xl p-3"
                     />
+
+                    <label>Student Email</label>
+                    <input
+                        value={user?.email}
+                        readOnly
+                        className="w-full border rounded-xl p-3"
+                    />
+
+                    <label>Tutor Name</label>
+                    <input
+                        value={tutorName}
+                        readOnly
+                        className="w-full border rounded-xl p-3"
+                    />
+                  
+                    <label>Tutor id</label>
+                    <input
+                        value={_id}
+                        readOnly
+                        className="w-full border rounded-xl p-3"
+                    />
+                  
 
                     <button
                         disabled={loading}

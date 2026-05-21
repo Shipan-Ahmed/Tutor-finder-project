@@ -2,14 +2,33 @@
 'use client';
 import { Switch } from '@/components/ui/switch';
 import Link from 'next/link';
-import  { useState } from 'react';
+
 import NavLink from './NavLink';
 import { Button } from '@/components/ui/button';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { ImCross } from 'react-icons/im';
+import { authClient } from '@/lib/auth-client';
+import { Avatar } from '@heroui/react';
+import { useState } from 'react';
+import { signOut } from 'better-auth/api';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const {
+        data: session,
+        isPending
+    } = authClient.useSession() 
+
+    if (isPending) {
+        return <div className='text-center py-4'><div><span className="loading loading-spinner text-error"></span></div></div>;
+    }
+
+    const user = session?.user;
+    
+    const signOut = async () => {
+        await authClient.signOut();
+    }
+   
     const links = <>
         <li><NavLink href='/' >Home</NavLink></li>
         <li><NavLink href='/tutors' >Tutors</NavLink></li>
@@ -49,11 +68,24 @@ const Navbar = () => {
                         <Switch />
                     </div>
                     <div>
-                        <Link href='/login'><Button className='ml-4 bg-blue-600 hover:bg-indigo-600 text-white mr-2'>Login</Button></Link>
-                        <Link href='/signup'><Button className=" bg-blue-600 hover:bg-indigo-600 text-white " >Sign up</Button></Link>
+                        {user ? (
+                            <div className='flex items-center gap-3'>
+                                <Avatar size="sm">
+                                    <Avatar.Image alt={user.name} src={user.image} referrerPolicy="no-referrer" />
+                                    <Avatar.Fallback>{user.name?.[0]}</Avatar.Fallback>
+                                </Avatar>
+                                <Button onClick={() => signOut()} className='btn btn outline bg-blue-500 hover:bg-blue-600 text-white border-none'>
+                                    Logout
+                                </Button>
+                            </div>
+                        ) : (
+                            <div className='flex gap-2'>
+                                    <Link href="/login"><Button className='btn  bg-blue-500 hover:bg-blue-600  text-white border-none'>  Sign In</Button></Link>
+                                    <Link href="/signup" ><Button className='btn  bg-blue-500 hover:bg-blue-600 text-white  border-none'>Sign Up</Button></Link>
+                            </div>
+                        )}
                     </div>
                 </div>
-                
             </nav>
      </header>
     );

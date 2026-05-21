@@ -31,7 +31,7 @@ const SignupPage = () => {
         }
         if (data) {
             toast.success("Sign up successful! ");
-            router.push("/signin");
+            router.push("/login");
         }
 
     }

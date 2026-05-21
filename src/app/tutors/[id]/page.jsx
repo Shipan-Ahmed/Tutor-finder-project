@@ -1,5 +1,8 @@
 import BookSessionModal from "@/Component/BookSessionModal";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
+
 
 import {
     FaMapMarkerAlt,
@@ -13,12 +16,15 @@ import {
 
 const TutorDetails = async ({ params }) => {
     const { id } = await params;
+    
 
     const res = await fetch(
         `http://localhost:3500/tutors/${id}`
     );
 
     const tutor = await res.json();
+
+   
 
     const {
         tutorName,
@@ -34,6 +40,14 @@ const TutorDetails = async ({ params }) => {
         location,
         teachingMode,
     } = tutor;
+
+
+    const session = await auth.api.getSession({
+        headers: await headers() // you need to pass the headers object.
+    })
+    const user = session?.user;
+    console.log("User in page:", user);
+    console.log("Tutor in page:", tutor);
 
     return (
         <div className="bg-slate-50 min-h-screen py-10 px-4">
