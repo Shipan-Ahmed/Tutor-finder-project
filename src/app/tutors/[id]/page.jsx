@@ -50,11 +50,11 @@ const TutorDetails = async ({ params }) => {
     console.log("Tutor in page:", tutor);
 
     return (
-        <div className="bg-slate-50 min-h-screen py-10 px-4">
+        <div className="bg-slate-100 min-h-screen py-10 px-4">
             <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8">
 
                 {/* left card */}
-                <div className="bg-white rounded-3xl overflow-hidden shadow-lg">
+                <div className="bg-accent rounded-3xl overflow-hidden shadow-lg">
 
                     <div className="relative h-[350px]">
 
@@ -105,7 +105,7 @@ const TutorDetails = async ({ params }) => {
 
                 <div className="lg:col-span-2 space-y-6">
 
-                    <div className="bg-white p-8 rounded-3xl shadow-lg">
+                    <div className="bg-accent p-8 rounded-3xl shadow-lg">
 
                         <h2 className="text-2xl font-bold mb-8">
                             Tutor Information
@@ -169,7 +169,7 @@ const TutorDetails = async ({ params }) => {
                     </div>
 
 
-                    <div className="bg-white rounded-3xl shadow-lg p-8">
+                    <div className="bg-accent rounded-3xl shadow-lg p-8">
 
                         <h2 className="text-2xl font-bold mb-4">
                             Experience

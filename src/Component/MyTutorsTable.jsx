@@ -7,6 +7,7 @@ import UpdateTutorModal
 
 import DeleteTutorModal
     from "./DeleteTutorModal";
+import Image from "next/image";
 
 export default function MyTutorsTable({
     initialTutors
@@ -19,7 +20,7 @@ export default function MyTutorsTable({
 
         return (
 
-            <div className="bg-white p-16 rounded-3xl text-center shadow">
+            <div className="bg-accent p-16 rounded-3xl text-center shadow">
 
                 <h2 className="text-3xl font-bold">
                     No Tutors Found
@@ -45,7 +46,7 @@ export default function MyTutorsTable({
 
                 <table className="w-full">
 
-                    <thead className="bg-slate-50 border-b">
+                    <thead className="bg-base-100 border-b">
 
                         <tr className="text-left">
 
@@ -80,16 +81,16 @@ export default function MyTutorsTable({
 
                                 <tr
                                     key={tutor._id}
-                                    className="border-b hover:bg-slate-50 transition"
+                                    className="border-b hover:bg-base-100 transition"
                                 >
 
                                     <td className="px-8 py-6">
 
                                         <div className="flex items-center gap-4">
 
-                                            <img
+                                            <Image
                                                 src={tutor.photo}
-                                                alt=""
+                                                alt={tutor.tutorName}
                                                 className="w-14 h-14 rounded-full object-cover border"
                                             />
 

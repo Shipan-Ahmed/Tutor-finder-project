@@ -120,8 +120,8 @@ export default function Banner() {
 
                         <Link href="/add-tutor">
                             <Button
-                                variant="outline"
-                                className="h-12 rounded-2xl px-8 text-black"
+                                variant="secondary"
+                                className="h-12 rounded-2xl px-8   "
                             >
                                 Become Tutor
                             </Button>

@@ -176,7 +176,7 @@ py-20
                 <div className="
 max-w-md
 mx-auto
-bg-white
+bg-accent
 shadow-lg
 rounded-3xl
 p-10
@@ -242,7 +242,7 @@ mb-8
 
 
             <div className="
-bg-white
+bg-accent
 rounded-3xl
 shadow-lg
 overflow-hidden

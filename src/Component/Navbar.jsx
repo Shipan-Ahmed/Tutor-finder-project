@@ -55,7 +55,7 @@ const Navbar = () => {
                             )
                         }
                     </div>
-                    <h2 className='text-3xl font-bold text-black'>Tutor<span className='text-blue-500'>Finder</span></h2>
+                    <h2 className='text-3xl font-bold'>Tutor<span className='text-blue-500'>Finder</span></h2>
                 </div>
                 <div className="hidden lg:flex ">
                     <ul className='hidden lg:flex space-x-4'>
