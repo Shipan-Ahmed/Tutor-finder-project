@@ -11,6 +11,7 @@ import { authClient } from '@/lib/auth-client';
 import { Avatar } from '@heroui/react';
 import { useState } from 'react';
 import { signOut } from 'better-auth/api';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -65,7 +66,8 @@ const Navbar = () => {
                 <div className='flex justify-between items-center gap-2'>
                     <div className='flex  items-center gap-2'>
                         <span> Dark mode</span>
-                        <Switch />
+                        {/* <Switch /> */}
+                        <ThemeToggle/>
                     </div>
                     <div>
                         {user ? (
