@@ -4,8 +4,7 @@ import MyTutorsTable from "@/Component/MyTutorsTable";
 
 const MyTutorsPage = async() => {
 
-    const session =
-        await auth.api.getSession({
+    const session = await auth.api.getSession({
             headers: await headers()
         });
 
@@ -13,6 +12,8 @@ const MyTutorsPage = async() => {
     const token = await auth.api.getToken({
         headers: await headers()
     })
+    console.log("User in MyTutorsPage:", user);
+    console.log("Token in MyTutorsPage:", token);
     const res = await fetch(
         `http://localhost:3500/my-tutors?email=${user?.email}`,
         {
