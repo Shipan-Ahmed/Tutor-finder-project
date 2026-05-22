@@ -11,6 +11,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import getJwt from "@/lib/getToken";
 
 export default function BookSessionModal({
     tutor,
@@ -85,11 +86,14 @@ export default function BookSessionModal({
             setLoading(true);
 
             // booking insert
-
+            const token = await getJwt();
             const bookingRes = await fetch(
                 "http://localhost:3500/bookings",
                 {
                     method: "POST",
+                    headers: {
+                        authorization: `Bearer ${token}`
+                    },
 
                     headers: {
                         "content-type":
@@ -110,7 +114,10 @@ export default function BookSessionModal({
                 await fetch(
                     `http://localhost:3500/tutors/decrease-slot/${_id}`,
                     {
-                        method: "PATCH"
+                        method: "PATCH",
+                        headers: {
+                            authorization: `Bearer ${token}`
+                        }
                     }
                 );
 

@@ -12,6 +12,7 @@ import { useState } from "react";
 import { toast }
     from "react-hot-toast";
 import { Button } from "@/components/ui/button";
+import getJwt from "@/lib/getToken";
 
 export default function DeleteTutorModal({
     id,
@@ -23,12 +24,15 @@ export default function DeleteTutorModal({
         useState(false);
 
     async function handleDelete() {
-
+        const token = await getJwt();
         const res =
             await fetch(
                 `http://localhost:3500/tutors/${id}`,
                 {
-                    method: "DELETE"
+                    method: "DELETE",
+                    headers: {
+                        authorization: `Bearer ${token}`
+                    }
                 }
             );
 

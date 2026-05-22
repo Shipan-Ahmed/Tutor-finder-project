@@ -12,6 +12,7 @@ import Image from "next/image";
 export default function MyTutorsTable({
     initialTutors
 }) {
+    console.log("initialTutors", initialTutors);
 
     const [tutors, setTutors] =
         useState(initialTutors);

@@ -37,7 +37,7 @@ import {
 }
     from "react-icons/fa";
 
-export default function MyBookedSessions() {
+export  default function MyBookedSessions() {
 
     const [sessions, setSessions] =
         useState([]);
@@ -54,29 +54,55 @@ export default function MyBookedSessions() {
     const user =
         session?.user;
 
-
+   
 
     useEffect(() => {
 
-        if (user?.email) {
+        async function loadBookings() {
 
-            fetch(
-                `http://localhost:3500/bookings/${user.email}`
-            )
+            if (!user?.email) return;
 
-                .then(res => res.json())
+            try {
 
-                .then(data => {
+                const token = await getJwt();
 
-                    setSessions(data);
+                const res = await fetch(
+                    `http://localhost:3500/bookings/${user.email}`,
+                    {
+                        headers: {
+                            authorization:`Bearer ${token}`
+                        }
+                    }
+                );
 
-                    setLoading(false);
+                const data =
+                    await res.json();
 
-                })
+                setSessions(data);
+
+            }
+
+            catch (error) {
+
+                console.log(error);
+
+                toast.error(
+                    "Failed to load sessions"
+                )
+
+            }
+
+            finally {
+
+                setLoading(false);
+
+            }
 
         }
 
-    }, [user])
+        loadBookings();
+
+    }, [user]);
 
 
 
@@ -84,15 +110,20 @@ export default function MyBookedSessions() {
 
         try {
 
+            const token =
+                await getJwt();
+
             const res =
                 await fetch(
-
                     `http://localhost:3500/bookings/cancel/${id}`,
-
                     {
-                        method: "PATCH"
-                    }
+                        method: "PATCH",
 
+                        headers: {
+                            authorization:
+                                `Bearer ${token}`
+                        }
+                    }
                 );
 
             const data =
@@ -100,46 +131,32 @@ export default function MyBookedSessions() {
 
             if (data.modifiedCount) {
 
-                setSessions(
-
-                    prev =>
-
-                        prev.map(item =>
-
-                            item._id === id
-
-                                ?
-
-                                {
-                                    ...item,
-                                    status: "cancelled"
-                                }
-
-                                :
-
-                                item
-
-                        )
-
-                )
+                setSessions(prev =>
+                    prev.map(item =>
+                        item._id === id
+                            ? {
+                                ...item,
+                                status: "cancelled"
+                            }
+                            : item
+                    )
+                );
 
                 toast.success(
                     "Session cancelled"
-                )
+                );
 
             }
 
         }
+
         catch {
 
-            toast.error(
-                "Failed"
-            )
+            toast.error("Failed");
 
         }
 
     }
-
 
 
     if (loading) {

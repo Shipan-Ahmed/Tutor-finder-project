@@ -9,7 +9,8 @@ import { FaBookOpen, FaClock, FaDollarSign } from 'react-icons/fa';
 
 const TutorCard = ({ tutor }) => {
     const { tutorName, subject, photo, hourlyFee, availableTime, institution, totalSlot, _id } = tutor;
-    console.log("id : ", _id);
+    console.log(" Tutor id : ", _id);
+    console.log("Tutor in card:", tutor);
     return (
         <div
             className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 group"

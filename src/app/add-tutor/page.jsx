@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select";
 
 import { authClient } from "@/lib/auth-client";
+import getJwt from "@/lib/getToken";
 
 export default function AddTutor() {
 
@@ -41,6 +42,8 @@ export default function AddTutor() {
     } = authClient.useSession();
 
     const user = session?.user;
+
+   
 
     async function handleSubmit(e) {
 
@@ -63,8 +66,7 @@ export default function AddTutor() {
 
             setLoading(true);
 
-            const form =
-                new FormData(e.target);
+            const form = new FormData(e.target);
 
             const tutorData = {
 
@@ -112,7 +114,7 @@ export default function AddTutor() {
                 createdAt:
                     new Date()
             };
-
+            const token = await getJwt();
             const response =
                 await fetch(
                     "http://localhost:3500/tutors",
@@ -121,7 +123,8 @@ export default function AddTutor() {
 
                         headers: {
                             "Content-Type":
-                                "application/json"
+                                "application/json",
+                            "Authorization": `Bearer ${token}`
                         },
 
                         body: JSON.stringify(

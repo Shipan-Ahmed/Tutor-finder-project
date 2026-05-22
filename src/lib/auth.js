@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import dns from "node:dns/promises";
+import { jwt } from "better-auth/plugins/jwt";
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const client = new MongoClient(process.env.DB_URI);
 const db = client.db("tutor-finder");
@@ -20,4 +21,14 @@ export const auth = betterAuth({
             clientSecret: process.env.AUTH_CLIENT_SECRET,
         },
     },
+    session: {
+        cookieCache: {
+            enable: true,
+            strategy: "jwt",
+            maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
+        }
+    },
+    plugins: [
+        jwt()
+    ]
 });

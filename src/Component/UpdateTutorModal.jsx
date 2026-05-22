@@ -43,7 +43,7 @@ export default function UpdateTutorModal({
                 )
 
         };
-
+        const token = await getJwt();
         const res =
             await fetch(
                 `http://localhost:3500/tutors/${tutor._id}`,
@@ -51,8 +51,8 @@ export default function UpdateTutorModal({
                     method: "PATCH",
 
                     headers: {
-                        "content-type":
-                            "application/json"
+                        "content-type": "application/json",
+                        authorization: `Bearer ${token}`
                     },
 
                     body:

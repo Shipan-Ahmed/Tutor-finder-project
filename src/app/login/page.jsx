@@ -48,7 +48,7 @@ const SigninPage = () => {
     };
 
     return (
-        <Card className='w-full max-w-md bg-accent mx-auto mt-10 p-6 rounded-lg shadow-lg'>
+        <Card className='w-full z-8 max-w-md bg-accent mx-auto mt-10 p-6 rounded-lg shadow-lg'>
             <h2 className='text-2xl font-bold mb-6 text-center'>Sign In</h2>
             <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
 

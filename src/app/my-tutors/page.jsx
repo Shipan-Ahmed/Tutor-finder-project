@@ -10,11 +10,16 @@ const MyTutorsPage = async() => {
         });
 
     const user = session?.user;
-
+    const token = await auth.api.getToken({
+        headers: await headers()
+    })
     const res = await fetch(
         `http://localhost:3500/my-tutors?email=${user?.email}`,
         {
-            cache: "no-store"
+            cache: "no-store",
+            headers: {
+                authorization: `Bearer ${token.token}`
+            }
         }
     );
 

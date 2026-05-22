@@ -33,9 +33,15 @@ const Navbar = () => {
     const links = <>
         <li><NavLink href='/' >Home</NavLink></li>
         <li><NavLink href='/tutors' >Tutors</NavLink></li>
-        <li><NavLink href='/add-tutor' >Add Tutor</NavLink></li>
-        <li><NavLink href='/my-tutors' >My Tutors</NavLink></li>
-        <li><NavLink href='/my-booked-sessions' >My Booked Sessions</NavLink></li>
+        {
+            user && (
+                <>
+                    <li><NavLink href='/add-tutor' >Add Tutor</NavLink></li>
+                    <li><NavLink href='/my-tutors' >My Tutors</NavLink></li>
+                    <li><NavLink href='/my-booked-sessions' >My Booked Sessions</NavLink></li>
+                </>
+            )
+        }
     </>
     return (
         <header className='bg-base-100 shadow-md mb-4'>
@@ -49,7 +55,7 @@ const Navbar = () => {
                         </Button>
                         {
                             isMenuOpen && (
-                                <ul className='absolute top-16 left-0  bg-base-100 shadow-md rounded flex flex-col items-start space-y-2  justify-start pl-8 pr-4 '>
+                                <ul className='absolute top-16 left-0 z-12  bg-transparent  shadow-md rounded flex flex-col items-start space-y-1  justify-start pl-8 pr-2 '>
                                     {links}
                                 </ul>
                             )

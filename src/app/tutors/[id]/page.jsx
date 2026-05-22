@@ -17,14 +17,22 @@ import {
 const TutorDetails = async ({ params }) => {
     const { id } = await params;
     
+    const jwttoken = await auth.api.getToken({
+        headers: await headers() // you need to pass the headers object.
+    });
+   
+    const tokenValue = jwttoken.token;
+    console.log(tokenValue);
 
-    const res = await fetch(
-        `http://localhost:3500/tutors/${id}`
-    );
+    const res = await fetch(`http://localhost:3500/tutors/${id}`, {
+        headers: {
+            authorization: `Bearer ${tokenValue}`
+        }
+    });
 
     const tutor = await res.json();
 
-   
+    console.log("Tutor in detailPages:", tutor);
 
     const {
         tutorName,

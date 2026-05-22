@@ -56,7 +56,7 @@ export default function Banner() {
     }
 
     return (
-        <section className="relative h-[88vh] overflow-hidden rounded">
+        <section className="relative h-[88vh] overflow-hidden z-4 rounded">
             <AnimatePresence mode="wait">
                 <motion.div
                     key={slides[current].id}

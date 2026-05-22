@@ -20,6 +20,7 @@ export default function AvailableTutors() {
             })
             .catch(() => setLoading(false))
     }, [])
+   
     console.log(typeof tutors, " tutors type");
     console.log(tutors, " tutors data");
     if (loading) {
