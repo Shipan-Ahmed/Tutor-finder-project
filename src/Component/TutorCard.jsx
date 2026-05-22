@@ -13,7 +13,7 @@ const TutorCard = ({ tutor }) => {
     console.log("Tutor in card:", tutor);
     return (
         <div
-            className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 group"
+            className="bg-accent rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 group"
         >
             <div className="relative h-64 overflow-hidden">
                 <Image
